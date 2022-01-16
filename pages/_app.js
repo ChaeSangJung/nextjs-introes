@@ -1,11 +1,13 @@
-import NavBar from "../components/NavBar";
+
+import Layout from "../components/Layout";
 import "../styles/globals.css"
 
 export default function App({Component, pageProps}){ // Component, pageProps <= frameworks가 정한 것
     return(
         <>
-            <NavBar />
-            <Component {...pageProps} />
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
         </>
     );
 }
