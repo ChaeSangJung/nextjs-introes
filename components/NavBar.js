@@ -19,8 +19,7 @@ export default function NavBar() {
                     text-decoration : none;
                 }
                 .active {
-                    font-weight:700;
-                    color: red;
+                    color: tomato;
                 }
             `}</style>
         </nav>
