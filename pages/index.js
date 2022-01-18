@@ -1,47 +1,12 @@
 import { useEffect, useState } from "react";
 import Seo from "../components/Seo";
 
-export default function Home() {
-    const [movies, SetMovies] = useState([]);
-    useEffect(() => {
-        (async () => {
-            const { results } = await (await fetch(`/api/movies`)).json();
-            SetMovies(results);
-        })();
-    },[]);
-
-    // useEffect(() => {},[]);
-
-    // useEffect(() => {
-    //     ()();
-    // },[]);
-
-    // useEffect(() => {
-    //     (async () => {
-
-    //     })();
-    // },[]);
-
-    // useEffect(() => {
-    //     (async () => {
-    //         const xxx = await fetch(`url`)
-    //     })();
-    // },[]);
-
-    // useEffect(() => {
-    //     (async ()=> {
-    //         const xxx = await (await fetch(`url`)).json();
-    //     })();
-    // },[]);
-
-    // const respnse = await fetch(`url`);
-    // const json = await respnse.json();
-
+export default function Home({results}) {
+    
     return (
         <div className="container">
             <Seo title="Home" />
-            {!movies && <h4>Loading...</h4>}
-            {movies?.map((movie)=>(
+            {results?.map((movie)=>(
                 <div className="movie" key={movie.id}>
                     <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`image of ${movie.original_title}`} />
                     <h4>{movie.original_title}</h4>
@@ -70,4 +35,13 @@ export default function Home() {
             `}</style>
         </div>
     );
+}
+
+export async function getServerSideProps() {
+    const {results} = await (await fetch(`http://localhost:3000/api/movies`)).json();
+    return {
+        props: {
+            results,
+        }
+    };
 }
